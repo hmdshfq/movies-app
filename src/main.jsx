@@ -3,14 +3,6 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import { createGlobalStyle } from 'styled-components';
 
-ReactDOM.render(
-    <React.StrictMode>
-        <App />
-        <GlobalStyles />
-    </React.StrictMode>,
-    document.getElementById('root')
-);
-
 const GlobalStyles = createGlobalStyle`
   /*
   1. Use a more-intuitive box-sizing model.
@@ -61,7 +53,37 @@ const GlobalStyles = createGlobalStyle`
   /*
     9. Create a root stacking context
   */
-  #root, #__next {
+  #root {
     isolation: isolate;
+    height: 100%;
+  }
+  /*
+    10. Colors
+  */
+  :root{
+    font-family: sans-serif;
+
+    background: var(--gray-100);
+    color: var(--gray-900);
+
+    --gray-100: hsl(20 1% 10%);
+    --gray-300: hsl(20 3% 30%); 
+    --gray-500: hsl(20 5% 50%);
+    --gray-700: hsl(20 7% 70%);
+    --gray-900: hsl(20 9% 90%);
+
+    --primary-100: hsl(20 100% 20%);
+    --primary-300: hsl(20 100% 35%);
+    --primary-500: hsl(20 100% 50%);
+    --primary-700: hsl(20 100% 60%);
+    --primary-900: hsl(21 100% 70%);
   }
 `;
+
+ReactDOM.render(
+    <React.StrictMode>
+        <App />
+        <GlobalStyles />
+    </React.StrictMode>,
+    document.getElementById('root')
+);
