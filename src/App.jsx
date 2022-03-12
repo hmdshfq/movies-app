@@ -12,6 +12,7 @@ import Footer from './components/Footer';
 const App = () => {
   const [accessToken, setAccessToken] = useState(null);
   const [mediaId, setMediaId] = useState(null);
+  const [userType, setUserType] = useState('TRIAL');
 
   const anonUser = {
     Device: {
@@ -36,9 +37,9 @@ const App = () => {
 
   return (
     <Wrapper>
-      <Nav setAccessToken={setAccessToken} />
+      <Nav setAccessToken={setAccessToken} setUserType={setUserType} />
       <main>
-        <MediaPlayer token={accessToken} mediaId={mediaId} />
+        <MediaPlayer token={accessToken} mediaId={mediaId} userType={ userType } />
         <HomeScreen token={accessToken} setId={setMediaId} />
       </main>
       <Footer />

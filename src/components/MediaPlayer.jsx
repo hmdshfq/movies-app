@@ -3,10 +3,11 @@ import Player from 'react-player';
 import styled from 'styled-components';
 import api from '../api/swagger';
 
-const MediaPlayer = ({ token, mediaId }) => {
+const MediaPlayer = ({ token, mediaId, userType }) => {
 
   const [url, setUrl] = useState('');
   const [content, setContent] = useState(false);
+  const [mediaError, setMediaError] = useState(null);
   /* Authorization token */
   const config = {
     headers: {
@@ -15,10 +16,10 @@ const MediaPlayer = ({ token, mediaId }) => {
   };
 
   /** Object for media item */
-  const mediaPlayParams = {
-    MediaId: mediaId,
-    StreamType: 'TRIAL',
-  };
+  const mediaParams = {
+        MediaId: mediaId,
+        StreamType: userType,
+  }
 
   useEffect(() => {
     /** Fetch media item for content url */
@@ -26,13 +27,13 @@ const MediaPlayer = ({ token, mediaId }) => {
       try {
         let response = await api.post(
           '/Media/GetMediaPlayInfo',
-          mediaPlayParams,
+          mediaParams,
           config
         );
         setContent(true);
         setUrl(response.data.ContentUrl);
       } catch (error) {
-        console.log(error)
+        setMediaError(error.response.status)
       }
     };
     getMediaInfo();
@@ -44,11 +45,19 @@ const MediaPlayer = ({ token, mediaId }) => {
     </Wrapper>
   )
 
+  if (mediaError === 403) return (
+    <Wrapper bg={'#000000'}>
+      <Error>Please subscribe to watch content</Error>
+    </Wrapper>
+  )
+
   if (!url && content) return (
     <Wrapper bg={'#000000'}>
-      <Error>Content Not Found!</Error>
+      <Error>Content not found!</Error>
     </Wrapper>
   );
+
+
   return (
     <Wrapper bg={'#000000'}>
       <Player controls url={url} />
