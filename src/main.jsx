@@ -103,6 +103,8 @@ const GlobalStyles = createGlobalStyle`
     margin: 0 -10px;
   }
 
+  [data-reach-dialog-overlay]{
+    background: hsl(0 0% 0% / 0.6);
   }
 `;
 
