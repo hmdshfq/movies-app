@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Dialog, DialogOverlay, DialogContent } from '@reach/dialog';
 import '@reach/dialog/styles.css';
 
-const SignInScreen = ({ setAccessToken, setUserType }) => {
+const SignInScreen = ({ setAccessToken, userType, setUserType }) => {
   const [showDialog, setShowDialog] = useState(false);
   const [errorMessages, setErrorMessages] = useState({});
   const open = () => setShowDialog(true);
@@ -69,6 +69,8 @@ const SignInScreen = ({ setAccessToken, setUserType }) => {
     name === errorMessages.name && (
       <ErrorMessage className='error'>{errorMessages.message}</ErrorMessage>
     );
+
+  if (userType === 'MAIN') return null
 
   return (
     <Wrapper>
