@@ -9,6 +9,8 @@ import Slider from 'react-slick';
 
 const MoviesList = ({ list, title, token, setMediaId }) => {
   const [mediaList, setMediaList] = useState(null);
+
+  /** Placeholder image for media cards without images */
   const placeholder =
     'https://images.unsplash.com/photo-1440404653325-ab127d49abc1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=300&q=80';
 
@@ -46,7 +48,7 @@ const MoviesList = ({ list, title, token, setMediaId }) => {
     getMediaListInfo();
   }, []);
 
-  /** Scroll to top after clicking */
+  /** Scroll to top after clicking media card*/
   const scrollTop = () => {
     window.scrollTo({
       top: 0,
@@ -56,7 +58,7 @@ const MoviesList = ({ list, title, token, setMediaId }) => {
     }
 
 
-  /** React Slick Slider Settings */
+  /** Settings for slick slider */
   let settings = {
     dots: false,
     infinite: true,
@@ -90,14 +92,17 @@ const MoviesList = ({ list, title, token, setMediaId }) => {
     ]
   };
 
+  /** Show splash-screen while the content is getting fetched */
   if (!mediaList) return <SplashScreen />;
+
+  /** Show the content after fetching it */
   return (
     <div>
       <ListTitle>{title}</ListTitle>
       <Slider {...settings}>
         {mediaList.map(item => (
           /* 
-            Clicking video will set its Id in the mediaPlayParams
+            Clicking video sets its Id in the mediaPlayParams
             and this object will be passed to server for fetching 
             video details
           */
@@ -115,11 +120,14 @@ const MoviesList = ({ list, title, token, setMediaId }) => {
   );
 };
 ``
+/** Style the title of media list */
 const ListTitle = styled.h2`
   margin-top: 30px;
   text-align: center;
+  text-transform: uppercase;
 `;
 
+/** Style the media card */
 const MediaCard = styled.div`
   position: relative;
   border-radius: var(--border-radius);
@@ -127,6 +135,7 @@ const MediaCard = styled.div`
   cursor: pointer;
 `;
 
+/** Style the image inside the media card */
 const Image = styled.img`
   aspect-ratio: 16/9;
   object-fit: cover;
@@ -135,6 +144,7 @@ const Image = styled.img`
   border-radius: var(--border-radius);
 `;
 
+/** Style the title of media inside the media card */
 const MediaTitle = styled.p`
   position: absolute;
   bottom: -1px;
