@@ -2,14 +2,14 @@ import React from 'react';
 import SignIn from './SignInScreen';
 import styled from 'styled-components';
 
-const Nav = ({ token }) => {
+const Nav = ({ setAccessToken }) => {
   return (
     <Wrapper>
       <div>
         <Logo  href={ window.origin }>Swagger Flix</Logo>
       </div>
       <nav>
-        <SignIn token={token} />
+        <SignIn setAccessToken={setAccessToken} />
       </nav>
     </Wrapper>
   );

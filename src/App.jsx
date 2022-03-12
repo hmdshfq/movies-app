@@ -25,6 +25,7 @@ const App = () => {
       .post('/Authorization/SignIn', anonUser)
       .then(response => {
         setAccessToken(response.data.AuthorizationToken.Token);
+        console.log('Signed in as anonymouse user')
       })
       .catch(error => {
         console.log(error);
@@ -35,7 +36,7 @@ const App = () => {
 
   return (
     <Wrapper>
-      <Nav token={setAccessToken} />
+      <Nav setAccessToken={setAccessToken} />
       <main>
         <MediaPlayer token={accessToken} mediaId={mediaId} />
         <HomeScreen token={accessToken} setId={setMediaId} />

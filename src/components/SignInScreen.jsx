@@ -6,9 +6,9 @@ import '@reach/dialog/styles.css';
 
 const SignInScreen = ({ setAccessToken }) => {
   const [showDialog, setShowDialog] = useState(false);
+  const [errorMessages, setErrorMessages] = useState({});
   const open = () => setShowDialog(true);
   const close = () => setShowDialog(false);
-  const [errorMessages, setErrorMessages] = useState({});
 
   const registeredUser = [
     {
@@ -35,15 +35,12 @@ const SignInScreen = ({ setAccessToken }) => {
     // Find user login info
     const userData = registeredUser.find(user => user.Username === uname.value);
 
-    console.log(userData);
-
     // Compare user info
     if (userData) {
       if (userData.Password !== pass.value) {
         // Invalid password
         setErrorMessages({ name: 'pass', message: errors.pass });
       } else {
-        setIsSubmitted(true);
         handleLogin();
       }
     } else {
@@ -114,7 +111,7 @@ const DialogWrapper = styled(Dialog)`
   inset: 0;
   background: var(--gray-300);
   width: 375px;
-  height: 225px;
+  height: min-content;
   margin: auto;
 `;
 
@@ -140,6 +137,7 @@ const Submit = styled.input`
   padding: 8px 16px;
   color: var(--gray-900);
   border-radius: var(--border-radius);
+  cursor: pointer;
 `;
 
 const CloseButton = styled.button`
