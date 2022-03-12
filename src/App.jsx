@@ -1,33 +1,63 @@
 import { useState, useEffect, React } from 'react';
 import api from './api/swagger';
 import uuid from 'react-uuid';
+import styled from 'styled-components';
 
 import SplashScreen from './components/SplashScreen';
+import Nav from './components/Nav';
+import MediaPlayer from './components/MediaPlayer';
 import HomeScreen from './components/HomeScreen';
+import Footer from './components/Footer';
 
 const App = () => {
-  const [accessData, setAccessData] = useState(null);
-  let accessToken = '';
-    const anonUser = {
-        Device: {
-            PlatformCode: 'WEB',
-            Name: uuid(),
-        },
-    };
+  const [accessToken, setAccessToken] = useState(null);
+  const [mediaId, setMediaId] = useState(null);
 
-    useEffect(() => {
-        api.post('/Authorization/SignIn', anonUser).then(response => {
-            setAccessData(response.data);
-        });
-    }, []);
-  
-  if (!accessData) return (
-    <SplashScreen />
+  const anonUser = {
+    Device: {
+      PlatformCode: 'WEB',
+      Name: uuid(),
+    },
+  };
+
+  const registeredUser = {
+    Username: 'test@bsgroup.eu',
+    Password: 'Test12!@',
+    Device: {
+      PlatformCode: 'WEB',
+      Name: '7a6a86e5-356f-4795-8998-305e1b205531',
+    },
+  };
+
+  useEffect(() => {
+    api
+      .post('/Authorization/SignIn', anonUser)
+      .then(response => {
+        setAccessToken(response.data.AuthorizationToken.Token);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }, []);
+
+  if (!accessToken) return <SplashScreen />;
+
+  return (
+    <Wrapper>
+      <Nav token={accessToken} />
+      <main>
+        <MediaPlayer token={accessToken} mediaId={mediaId} />
+        <HomeScreen token={accessToken} setId={setMediaId} />
+      </main>
+      <Footer />
+    </Wrapper>
   );
-  else {
-    accessToken = accessData.AuthorizationToken.Token;
-    return <HomeScreen token={accessToken} />;
-  }
 };
+
+const Wrapper = styled.div`
+  padding: 30px;
+  max-width: 1200px;
+  margin: auto;
+`;
 
 export default App;

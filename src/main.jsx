@@ -83,18 +83,33 @@ const GlobalStyles = createGlobalStyle`
     --border-radius: 4px;
   }
 
-    --primary-100: hsl(20 100% 20%);
-    --primary-300: hsl(20 100% 35%);
-    --primary-500: hsl(20 100% 50%);
-    --primary-700: hsl(20 100% 60%);
-    --primary-900: hsl(21 100% 70%);
+  /*
+    11. Slick Slider
+  */
+  .slick-slide{
+    height: 200px;
+    display: flex !important;
+    align-items: center;
+    & > div{
+      margin: 0 10px;
+      transition: transform 0.6s ease-in;
+    }
+    &:hover > div {
+      transform: scale(1.1);
+      transition: transform 0.3s ease-out;
+    }
+  }
+  .slick-list{
+    margin: 0 -10px;
+  }
+
   }
 `;
 
 ReactDOM.render(
-    <React.StrictMode>
-        <App />
-        <GlobalStyles />
-    </React.StrictMode>,
-    document.getElementById('root')
+  <React.StrictMode>
+    <App />
+    <GlobalStyles />
+  </React.StrictMode>,
+  document.getElementById('root')
 );
