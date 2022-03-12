@@ -32,12 +32,16 @@ const MoviesList = ({ list, title, token, setMediaId }) => {
   /* Fetch the list of media */
   useEffect(() => {
     const getMediaListInfo = async () => {
-      let response = await api.post(
-        '/Media/GetMediaList',
-        mediaListParams,
-        config
-      );
-      setMediaList(response.data.Entities);
+      try {
+        let response = await api.post(
+          '/Media/GetMediaList',
+          mediaListParams,
+          config
+        );
+        setMediaList(response.data.Entities);
+      } catch (error) {
+        console.log(error)
+      }
     };
     getMediaListInfo();
   }, []);

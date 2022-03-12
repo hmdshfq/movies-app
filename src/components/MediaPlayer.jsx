@@ -23,13 +23,17 @@ const MediaPlayer = ({ token, mediaId }) => {
   useEffect(() => {
     /** Fetch media item for content url */
     const getMediaInfo = async () => {
-      let response = await api.post(
-        '/Media/GetMediaPlayInfo',
-        mediaPlayParams,
-        config
-      );
-      setContent(true);
-      setUrl(response.data.ContentUrl);
+      try {
+        let response = await api.post(
+          '/Media/GetMediaPlayInfo',
+          mediaPlayParams,
+          config
+        );
+        setContent(true);
+        setUrl(response.data.ContentUrl);
+      } catch (error) {
+        console.log(error)
+      }
     };
     getMediaInfo();
   }, [mediaId]);

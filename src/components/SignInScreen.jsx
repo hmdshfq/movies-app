@@ -52,15 +52,17 @@ const SignInScreen = ({ setAccessToken }) => {
     }
   };
 
-  const handleLogin = async () => {
-      api
-        .post('/Authorization/SignIn', registeredUser)
-        .then(response => {
-          setAccessToken(response.data.AuthorizationToken.Token);
-        })
-        .catch(error => {
-          console.log(error);
-        });
+  const handleLogin = () => {
+    const authenticate = async () => {
+      try {   
+        let response = await api.post('/Authorization/SignIn', registeredUser[0])
+        setAccessToken(response.data.AuthorizationToken.Token);
+        console.log('Signed in as registered user')
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    authenticate();
     close();
   };
 
