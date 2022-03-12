@@ -4,12 +4,11 @@ import styled from 'styled-components';
 import { Dialog, DialogOverlay, DialogContent } from '@reach/dialog';
 import '@reach/dialog/styles.css';
 
-const SignInScreen = ({ token }) => {
+const SignInScreen = ({ setAccessToken }) => {
   const [showDialog, setShowDialog] = useState(false);
   const open = () => setShowDialog(true);
   const close = () => setShowDialog(false);
   const [errorMessages, setErrorMessages] = useState({});
-  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const registeredUser = [
     {
@@ -54,7 +53,14 @@ const SignInScreen = ({ token }) => {
   };
 
   const handleLogin = async () => {
-    console.log('login');
+      api
+        .post('/Authorization/SignIn', registeredUser)
+        .then(response => {
+          setAccessToken(response.data.AuthorizationToken.Token);
+        })
+        .catch(error => {
+          console.log(error);
+        });
     close();
   };
 

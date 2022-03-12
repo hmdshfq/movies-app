@@ -20,15 +20,6 @@ const App = () => {
     },
   };
 
-  const registeredUser = {
-    Username: 'test@bsgroup.eu',
-    Password: 'Test12!@',
-    Device: {
-      PlatformCode: 'WEB',
-      Name: '7a6a86e5-356f-4795-8998-305e1b205531',
-    },
-  };
-
   useEffect(() => {
     api
       .post('/Authorization/SignIn', anonUser)
@@ -44,7 +35,7 @@ const App = () => {
 
   return (
     <Wrapper>
-      <Nav token={accessToken} />
+      <Nav token={setAccessToken} />
       <main>
         <MediaPlayer token={accessToken} mediaId={mediaId} />
         <HomeScreen token={accessToken} setId={setMediaId} />
