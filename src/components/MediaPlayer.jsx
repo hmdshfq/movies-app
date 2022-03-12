@@ -1,10 +1,9 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import Player from 'react-player';
 import styled from 'styled-components';
 import api from '../api/swagger';
 
 const MediaPlayer = ({ token, mediaId, userType }) => {
-
   const [url, setUrl] = useState('');
   const [content, setContent] = useState(false);
   const [mediaError, setMediaError] = useState(null);
@@ -17,9 +16,9 @@ const MediaPlayer = ({ token, mediaId, userType }) => {
 
   /** Object for media item */
   const mediaParams = {
-        MediaId: mediaId,
-        StreamType: userType,
-  }
+    MediaId: mediaId,
+    StreamType: userType,
+  };
 
   useEffect(() => {
     /** Fetch media item for content url */
@@ -33,30 +32,32 @@ const MediaPlayer = ({ token, mediaId, userType }) => {
         setContent(true);
         setUrl(response.data.ContentUrl);
       } catch (error) {
-        setMediaError(error.response.status)
+        setMediaError(error.response.status);
       }
     };
     getMediaInfo();
   }, [mediaId]);
 
-  if (!url && !content) return (
-    <Wrapper bg={'var(--gray-100)'}>
-      <Welcome>Welcome to Swagger Flix!</Welcome>
-    </Wrapper>
-  )
+  if (!url && !content)
+    return (
+      <Wrapper bg={'var(--gray-100)'}>
+        <Welcome>Welcome to Swagger Flix!</Welcome>
+      </Wrapper>
+    );
 
-  if (mediaError === 403) return (
-    <Wrapper bg={'#000000'}>
-      <Error>Please subscribe to watch content</Error>
-    </Wrapper>
-  )
+  if (mediaError === 403)
+    return (
+      <Wrapper bg={'#000000'}>
+        <Error>Please subscribe to watch content</Error>
+      </Wrapper>
+    );
 
-  if (!url && content) return (
-    <Wrapper bg={'#000000'}>
-      <Error>Content not found!</Error>
-    </Wrapper>
-  );
-
+  if (!url && content)
+    return (
+      <Wrapper bg={'#000000'}>
+        <Error>Content not found!</Error>
+      </Wrapper>
+    );
 
   return (
     <Wrapper bg={'#000000'}>
@@ -71,18 +72,19 @@ const Wrapper = styled.div`
   margin: 30px 0;
   background: ${props => props.bg};
   height: 360px;
-display: flex;
-align-items: center;
+  display: flex;
+  align-items: center;
+  padding: 30px;
 `;
 
 const Welcome = styled.p`
   font-size: 2rem;
   font-weight: 800;
   color: var(--primary-500);
-`
+`;
 
 const Error = styled.p`
   font-size: 2rem;
-`
+`;
 
 export default MediaPlayer;
