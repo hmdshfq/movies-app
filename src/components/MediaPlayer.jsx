@@ -60,7 +60,7 @@ const MediaPlayer = ({ token, mediaId, userType }) => {
 
   return (
     <Wrapper bg={'#000000'}>
-      <Player controls url={url} />
+      <Player playing={true} controls url={url} />
     </Wrapper>
   );
 };
