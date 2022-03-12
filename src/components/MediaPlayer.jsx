@@ -6,6 +6,7 @@ import api from '../api/swagger';
 const MediaPlayer = ({ token, mediaId }) => {
 
   const [url, setUrl] = useState('');
+  const [content, setContent] = useState(false);
   /* Authorization token */
   const config = {
     headers: {
@@ -27,19 +28,25 @@ const MediaPlayer = ({ token, mediaId }) => {
         mediaPlayParams,
         config
       );
+      setContent(true);
       setUrl(response.data.ContentUrl);
     };
     getMediaInfo();
   }, [mediaId]);
 
+  if (!url && !content) return (
+    <Wrapper bg={'var(--gray-100)'}>
+      <Welcome>Welcome to Swagger Flix!</Welcome>
+    </Wrapper>
+  )
 
-  if (!url) return (
-    <Wrapper>
-      <BlackBackground>Content Not Found!</BlackBackground>
+  if (!url && content) return (
+    <Wrapper bg={'#000000'}>
+      <Error>Content Not Found!</Error>
     </Wrapper>
   );
   return (
-    <Wrapper>
+    <Wrapper bg={'#000000'}>
       <Player controls url={url} />
     </Wrapper>
   );
@@ -49,13 +56,19 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   margin: 30px 0;
-  background: #000000;
+  background: ${props => props.bg};
+  height: 360px;
+display: flex;
+align-items: center;
 `;
 
-const BlackBackground = styled.div`
-  height: 360px;
-  display: flex;
-  align-items: center;
+const Welcome = styled.p`
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--primary-500);
+`
+
+const Error = styled.p`
   font-size: 2rem;
 `
 
