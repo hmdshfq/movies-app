@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import MoviesList from './MoviesList';
 
-const HomeScreen = ({ token, setId }) => {
+const MediaLists = ({ token, setId }) => {
   return (
     <Wrapper>
       <MoviesList
@@ -44,4 +44,4 @@ const Wrapper = styled.div`
   height: 100%;
 `;
 
-export default HomeScreen;
+export default MediaLists;
