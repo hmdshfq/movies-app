@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import './main.css';
 import App from './App';
 import { createGlobalStyle } from 'styled-components';
 
@@ -61,16 +62,26 @@ const GlobalStyles = createGlobalStyle`
     10. Colors
   */
   :root{
-    font-family: sans-serif;
 
+    font-family: 'Nunito', sans-serif;
+    
     background: var(--gray-100);
     color: var(--gray-900);
 
-    --gray-100: hsl(20 1% 10%);
-    --gray-300: hsl(20 3% 30%); 
-    --gray-500: hsl(20 5% 50%);
-    --gray-700: hsl(20 7% 70%);
-    --gray-900: hsl(20 9% 90%);
+    --gray-100: hsl(1 1% 10%);
+    --gray-300: hsl(1 3% 30%); 
+    --gray-500: hsl(1 5% 50%);
+    --gray-700: hsl(1 7% 70%);
+    --gray-900: hsl(1 9% 90%);
+
+    --primary-100: hsl(1 74% 20%);
+    --primary-300: hsl(1 74% 35%);
+    --primary-500: hsl(1 74% 50%);
+    --primary-700: hsl(1 74% 60%);
+    --primary-900: hsl(7 74% 70%);
+
+    --border-radius: 4px;
+  }
 
     --primary-100: hsl(20 100% 20%);
     --primary-300: hsl(20 100% 35%);
