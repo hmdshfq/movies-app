@@ -1,4 +1,5 @@
 import React from 'react';
+import SignIn from './SignInScreen';
 import styled from 'styled-components';
 
 const Nav = ({ token }) => {
